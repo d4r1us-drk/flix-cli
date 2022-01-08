@@ -11,12 +11,12 @@
 ### How does this work?
 
 This is a shell script. It scrapes 1337x and gets the magnet link.
-After this it uses [webtorrent](https://webtorrent.io/) to stream the video from the magnet link.
+After this it uses [webtorrent-cli](https://github.com/webtorrent/webtorrent-cli) to stream the video from the magnet link.
 For scraping, the script uses simple gnu utils like sed, awk, paste, cut.
 
 ## Requirements
 
-* [webtorrent](https://webtorrent.io/) - A tool to stream torrent. `npm install -g webtorrent-cli --prefix ~/.local/`
+* [webtorrent-cli](https://github.com/webtorrent/webtorrent-cli) - A tool to stream torrent. `npm install -g webtorrent-cli --prefix ~/.local/`
 
 ## Installation
 
