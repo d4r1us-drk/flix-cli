@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Dependencies - webtorrent, mpv
 
@@ -8,7 +8,7 @@ baseurl="https://1337x.to"
 cachedir="$HOME/.cache/notflix"
 
 if [ -z $1 ]; then
-  echo "What do you wish to watch?:  "
+  echo "Search:"
   read query
 else
   query=$1
