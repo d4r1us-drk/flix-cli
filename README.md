@@ -17,6 +17,7 @@ For scraping, the script uses simple gnu utils like sed, awk, paste, cut.
 ## Requirements
 
 * [webtorrent-cli](https://github.com/webtorrent/webtorrent-cli) - A tool to stream torrent. `npm install -g webtorrent-cli --prefix ~/.local/`
+* mpv
 
 ## Installation
 
