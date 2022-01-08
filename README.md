@@ -1,12 +1,5 @@
 <h1 align="center">NOTFLIX</h1>
-<p align="center">f@#k netflix use notflix a tool which search magnet links and stream it with webtorrent</p>
-
-##
-<p align="center">
-<img src="./preview.gif" alt="Video Preview" width="500px">
-</p>
-
-> Watch my video on this - [bugswriter's notflix](https://youtu.be/RFJCL9C46Mc)
+<p align="center">f@#k Netflix, use notflix instead, a tool which search magnet links and stream it with webtorrent</p>
 
 ### How does this work?
 
