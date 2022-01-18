@@ -15,9 +15,9 @@ For scraping, the script uses simple gnu utils like sed, awk, paste, cut.
 ## Installation
 
 ```sh
-$ git clone https://github.com/d4r1us-drk/notflix && cd notflix && cp notflix ~/.local/bin && cd && rm -rf notflix
+$ wget https://github.com/d4r1us-drk/notflix/blob/72c080046f05d2c46f0c9fae3f72f5f99aa835ab/install.sh && chmod +x install.sh && ./install.sh && rm -f install.sh 
 ```
-- To update, just do `git clone` again.
+- To update, just run the command again.
 - To uninstall, simply remove `notflix` from ~/.local/bin
 
 ## License
