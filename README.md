@@ -17,7 +17,7 @@ For scraping, the script uses simple gnu utils like sed, awk, paste, cut. Rollin
 curl https://raw.githubusercontent.com/d4r1us-drk/notflix/master/install.sh -o install.sh && chmod +x install.sh && ./install.sh && rm -f install.sh 
 ```
 - To update, just run the command again.
-- To uninstall, simply remove `notflix` from ~/.local/bin
+- To uninstall, simply remove `notflix` from /usr/local/bin
 
 ## License
 This project is licensed under [GPL-3.0](https://raw.githubusercontent.com/Illumina/licenses/master/gpl-3.0.txt).
