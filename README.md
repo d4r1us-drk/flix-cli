@@ -5,11 +5,10 @@
 
 This is a shell script. It scrapes 1337x and gets the magnet link.
 After this it uses [webtorrent-cli](https://github.com/webtorrent/webtorrent-cli) to stream the video from the magnet link.
-For scraping, the script uses simple gnu utils like sed, awk, paste, cut.
-
+For scraping, the script uses simple gnu utils like sed, awk, paste, cut. Rolling release distros are recommended to install the lastest version of npm and nodejs.
 ## Requirements
 
-* [webtorrent-cli](https://github.com/webtorrent/webtorrent-cli) - A tool to stream torrent. `npm install -g webtorrent-cli --prefix ~/.local/`
+* npm and nodejs
 * mpv
 
 ## Installation
