@@ -14,7 +14,7 @@ For scraping, the script uses simple gnu utils like sed, awk, paste, cut. Rollin
 ## Installation
 
 ```sh
-curl https://raw.githubusercontent.com/d4r1us-drk/notflix/master/install.sh -o install.sh && chmod +x install.sh && ./install.sh && rm -f install.sh 
+curl -sLf https://raw.githubusercontent.com/d4r1us-drk/notflix/master/install.sh | bash 
 ```
 - To update, just run the command again.
 - To uninstall, simply remove `notflix` from /usr/local/bin
