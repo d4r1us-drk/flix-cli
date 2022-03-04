@@ -5,7 +5,7 @@
 mkdir -p "$HOME/.cache/notflix"
 mkdir -p "$HOME/.cache/notflix/video"
 
-baseurl="https://1337x.wtf"
+baseurl="https://1337x.to"
 cachedir="$HOME/.cache/notflix"
 cachedir2="$HOME/.cache/notflix/video"
 
