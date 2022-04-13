@@ -26,8 +26,9 @@ curl -s $baseurl/search/"$query"/1/ > "$cachedir"/tmp.html
 # getting titles
 grep -o '<a href="/torrent/.*</a>' "$cachedir"/tmp.html |
   sed 's/<[^>]*>//g' > "$cachedir"/titles.bw
-
 result_count=$(wc -l "$cachedir"/titles.bw | awk '{print $1}')
+
+# error message
 if [ "$result_count" -lt 1 ]; then
   echo "😔 No Result found. Try again 🔴"
   exit 0
