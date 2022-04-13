@@ -6,13 +6,13 @@
 PREFIX = /usr/local
 
 all:
-	@echo Run \'make install\' to install notflix.
+	@echo Run \'make install\' to install flix-cli.
 
 install:
 	@mkdir -p $(DESTDIR)$(PREFIX)/bin
-	@cp -p notflix $(DESTDIR)$(PREFIX)/bin/notflix
-	@chmod 755 $(DESTDIR)$(PREFIX)/bin/notflix
+	@cp -p flix-cli $(DESTDIR)$(PREFIX)/bin/flix-cli
+	@chmod 755 $(DESTDIR)$(PREFIX)/bin/flix-cli
 
 uninstall:
-	@rm -f $(DESTDIR)$(PREFIX)/bin/notflix
+	@rm -f $(DESTDIR)$(PREFIX)/bin/flix-cli
 # end
