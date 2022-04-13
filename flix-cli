@@ -3,13 +3,13 @@
 # Dependencies - webtorrent, mpv
 
 # making cache directories
-mkdir -p "$HOME/.cache/notflix"
-mkdir -p "$HOME/.cache/notflix/video"
+mkdir -p "$HOME/.cache/flix-cli"
+mkdir -p "$HOME/.cache/flix-cli/video"
 
 # some variables
 baseurl="https://1337x.to"
-cachedir="$HOME/.cache/notflix"
-videodir="$HOME/.cache/notflix/video"
+cachedir="$HOME/.cache/flix-cli"
+videodir="$HOME/.cache/flix-cli/video"
 
 # getting user input
 if [ -z "$1" ]; then
