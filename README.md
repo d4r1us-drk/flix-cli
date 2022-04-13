@@ -10,15 +10,25 @@ For scraping, the script uses simple gnu utils like sed, awk, paste, cut. Rollin
 ## Requirements
 
 * npm and nodejs
+* webtorrent-cli
 * mpv
 
 ## Installation
-
+* Make sure you have the dependencies installed. If not, install them using your package manager. This command installs webtorrent-cli using npm.
 ```sh
-curl -sLf https://raw.githubusercontent.com/d4r1us-drk/flix-cli/master/install.sh | bash 
+sudo npm install -g webtorrent-cli
 ```
-- To update, just run the command again.
-- To uninstall, simply remove `flix-cli` from /usr/local/bin
+
+* Now clone this repo and cd into it
+```sh
+git clone https://github.com/d4r1us-drk/flix-cli.git
+cd flix-cli
+```
+* Then run this
+```sh
+sudo make install
+```
+- To uninstall, simply run `sudo make uninstall` from the git repo
 
 ## License
 This project is licensed under [GPL-3.0](https://raw.githubusercontent.com/Illumina/licenses/master/gpl-3.0.txt).
