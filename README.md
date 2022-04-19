@@ -14,17 +14,18 @@ For scraping, the script uses simple gnu utils like sed, awk, paste, cut. Rollin
 * mpv
 
 ## Installation
-* Make sure you have the dependencies installed. If not, install them using your package manager. This command installs peerflix using npm.
+Make sure you have the dependencies installed. If not, install them using your package manager.
+* This command installs peerflix using npm.
 ```sh
 $ sudo npm install -g peerflix					# install peerflix using npm
 ```
-* To install run:
+* To install the script run
 ```sh
 $ git clone https://github.com/d4r1us-drk/flix-cli.git 		# clone the repo
 $ cd flix-cli 							# cd into it
 $ sudo make install 						# install the script
 ```
-* To uninstall run:
+* To uninstall the script run
 ```sh
 $ sudo make uninstall 						# while being inside the repo
 ```
