@@ -18,18 +18,15 @@ For scraping, the script uses simple gnu utils like sed, awk, paste, cut. Rollin
 ```sh
 $ sudo npm install -g peerflix
 ```
-* Now clone this repo and cd into it
+* To install run:
 ```sh
-$ git clone https://github.com/d4r1us-drk/flix-cli.git
-$ cd flix-cli
+$ git clone https://github.com/d4r1us-drk/flix-cli.git # clone the repo
+$ cd flix-cli # cd into it
+$ sudo make install # install the script
 ```
-* Then run this
+* To uninstall run:
 ```sh
-$ sudo make install
-```
-* To uninstall, simply run this
-```sh
-$ sudo make uninstall
+$ sudo make uninstall # uninstall the script
 ```
 
 ## License
