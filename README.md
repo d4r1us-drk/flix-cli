@@ -4,19 +4,19 @@
 ### How does this work?
 
 This is a bash script. It scrapes movies from 1337x and gets the magnet link.
-After this it uses [webtorrent-cli](https://github.com/webtorrent/webtorrent-cli) to stream the video from the magnet link to mpv.
+After this it uses [peerflix](https://github.com/mafintosh/peerflix) to stream the video from the magnet link to mpv.
 For scraping, the script uses simple gnu utils like sed, awk, paste, cut. Rolling release distros are recommended to install the lastest version of npm and nodejs.
 
 ## Requirements
 
 * npm and nodejs
-* webtorrent-cli
+* [peerflix](https://github.com/mafintosh/peerflix)
 * mpv
 
 ## Installation
-* Make sure you have the dependencies installed. If not, install them using your package manager. This command installs webtorrent-cli using npm.
+* Make sure you have the dependencies installed. If not, install them using your package manager. This command installs peerflix using npm.
 ```sh
-$ sudo npm install -g webtorrent-cli
+$ sudo npm install -g peerflix
 ```
 * Now clone this repo and cd into it
 ```sh
@@ -27,7 +27,7 @@ $ cd flix-cli
 ```sh
 $ sudo make install
 ```
-* To uninstall, simply run this 
+* To uninstall, simply run this
 ```sh
 $ sudo make uninstall
 ```
