@@ -1,5 +1,5 @@
 <h1 align="center">flix-cli</h1>
-<p align="center">flix-cli is a tool which search magnet links and stream it with webtorrent</p>
+<p align="center">flix-cli is a tool which search magnet links and stream it with peerflix</p>
 
 ### How does this work?
 
