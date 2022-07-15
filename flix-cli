@@ -11,14 +11,35 @@ baseurl="https://1337x.to"
 cachedir="$HOME/.cache/flix-cli"
 videodir="$HOME/.cache/flix-cli/video"
 
+# prints colored text
+print_style () {
+    if [ "$2" == "info" ] ; then
+        COLOR="96m";
+    elif [ "$2" == "success" ] ; then
+        COLOR="92m";
+    elif [ "$2" == "warning" ] ; then
+        COLOR="93m";
+    elif [ "$2" == "danger" ] ; then
+        COLOR="91m";
+    else #default color
+        COLOR="0m";
+    fi
+    STARTCOLOR="\e[$COLOR";
+    ENDCOLOR="\e[0m";
+    printf "$STARTCOLOR%b$ENDCOLOR" "$1";
+}
+
+[ ! -x "$(command -v peerflix)" ] && print_style "peerflix is not installed, please install it using npm\n" "danger" && exit 0
+[ ! -x "$(command -v mpv)" ] && print_style "mpv is not installed, please install it using your package manager\n" "danger" && exit 0
+
 # getting user input
 if [ -z "$1" ]; then
-  echo "Search:"
+  print_style "Search:\n> " "success"
   read -r query
 else
-  query=$1
+  query=$*
 fi
-query="$(echo "$query" | sed 's/ /+/g')"
+query="$(echo -e "$query" | sed 's/ /+/g')"
 
 # doing the scrap
 curl -s $baseurl/search/"$query"/1/ > "$cachedir"/tmp.html
@@ -30,7 +51,7 @@ result_count=$(wc -l "$cachedir"/titles.bw | awk '{print $1}')
 
 # error message
 if [ "$result_count" -lt 1 ]; then
-  echo "😔 No Result found. Try again 🔴"
+  print_style "No Results found. Please try again...\n" "danger"
   exit 0
 fi
 
@@ -57,17 +78,17 @@ awk '{print "[S:"$1 ", L:"$2"]" }' "$cachedir"/seedleech.bw > "$cachedir"/tmp &&
 
 # getting the line number
 paste -d\  "$cachedir"/size.bw "$cachedir"/titles.bw "$cachedir"/seedleech.bw
-echo "Select your stream"
+print_style "Select your stream\n> " "warning"
 read -r LINE
 
 # error message
 if [ -z "$LINE" ]; then
-  echo "😔 No Result selected. Exiting... 🔴"
+  print_style "No Results selected. Exiting...\n" "danger"
   exit 0
 fi
 
 # success message
-echo "🔍 Searching Magnet seeds 🧲"
+print_style "Getting seeds...\n" "warning"
 url=$(head -n "$LINE" "$cachedir"/links.bw | tail -n +"$LINE")
 fullURL="${baseurl}${url}/"
 
