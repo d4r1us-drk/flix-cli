@@ -29,8 +29,9 @@ print_style () {
     printf "$STARTCOLOR%b$ENDCOLOR" "$1";
 }
 
-[ ! -x "$(command -v peerflix)" ] && print_style "peerflix is not installed, please install it using npm\n" "danger" && exit 0
-[ ! -x "$(command -v mpv)" ] && print_style "mpv is not installed, please install it using your package manager\n" "danger" && exit 0
+# check dependencies
+[ ! -x "$(command -v peerflix)" ] && print_style "peerflix is not installed, please install it using npm\n" "danger" && exit 1
+[ ! -x "$(command -v mpv)" ] && print_style "mpv is not installed, please install it using your package manager\n" "danger" && exit 1
 
 # getting user input
 if [ -z "$1" ]; then
@@ -52,7 +53,7 @@ result_count=$(wc -l "$cachedir"/titles.bw | awk '{print $1}')
 # error message
 if [ "$result_count" -lt 1 ]; then
   print_style "No Results found. Please try again...\n" "danger"
-  exit 0
+  exit 1
 fi
 
 # getting seeders and leechers
@@ -84,7 +85,7 @@ read -r LINE
 # error message
 if [ -z "$LINE" ]; then
   print_style "No Results selected. Exiting...\n" "danger"
-  exit 0
+  exit 1
 fi
 
 # success message
@@ -98,5 +99,7 @@ magnet=$(grep -Eo "magnet:\?xt=urn:btih:[a-zA-Z0-9]*" "$cachedir"/tmp.html | hea
 
 # main action
 peerflix -k -f "$videodir" "$magnet"
-rm -rf "$cachedir"
-exit 0
+
+# cleanup
+function cleanup { rm -rf "$HOME/.cache/flix-cli"; }
+trap 'cleanup' EXIT INT SIGINT SIGTERM
