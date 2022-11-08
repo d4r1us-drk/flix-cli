@@ -7,6 +7,7 @@ After this it uses [peerflix](https://github.com/mafintosh/peerflix) to stream t
 For scraping, the script uses simple gnu utils like sed, awk, paste, cut. It's recommended to install the lastest version of npm.
 
 ## WARNING
+- **This script will pull out torrents from 1337x which is a very special site, so please use a VPN when using it.**
 - **This script doesn't filter out any content yet, be careful with NSFW related content.**
 - This script doesn't support series yet, if you try to watch a series, it will just play a random episode.
 
