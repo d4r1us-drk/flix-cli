@@ -1,10 +1,10 @@
-##
+####################
 # flix-cli
-#
 # @flix-cli
-# @version 1.0
-PREFIX = /usr/local
+# @version 0.1 ALPHA
+####################
 
+PREFIX = /usr/local
 all:
 	@echo Run \'make install\' to install flix-cli.
 	

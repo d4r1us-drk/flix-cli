@@ -9,25 +9,36 @@ For scraping, the script uses simple gnu utils like sed, awk, paste, cut. Rollin
 
 ## Requirements
 
-* npm and nodejs
+* npm
 * [peerflix](https://github.com/mafintosh/peerflix)
 * mpv
 
 ## Installation
 Make sure you have the dependencies installed. If not, install them using your package manager.
+
+### Automatic Installation
+You can use the included install.sh script to install this program.
+Keep in mind that the installation requires you to put your password for sudo privileges. If you want to know why, take a look at the manual installation.
+```sh
+$ git clone https://github.com/d4r1us-drk/flix-cli.git     # clone the repo
+$ cd flix-cli                                              # cd into it
+$ ./install.sh                                             # install the script
+```
+
+### Manual Installation
 * This command installs peerflix using npm.
 ```sh
-$ sudo npm install -g peerflix					# install peerflix using npm
+$ sudo npm install -g peerflix                     # install peerflix using npm
 ```
 * To install the script run
 ```sh
-$ git clone https://github.com/d4r1us-drk/flix-cli.git 		# clone the repo
-$ cd flix-cli 							# cd into it
-$ sudo make install 						# install the script
+$ git clone https://github.com/d4r1us-drk/flix-cli.git     # clone the repo
+$ cd flix-cli                                              # cd into it
+$ sudo make install                                        # install the script
 ```
 * To uninstall the script run
 ```sh
-$ sudo make uninstall 						# while being inside the repo
+$ sudo make uninstall                             # while being inside the repo
 ```
 
 ## License
