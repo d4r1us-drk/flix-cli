@@ -14,6 +14,7 @@ For scraping, the script uses simple gnu utils like sed, awk, paste, cut. It's r
 * npm
 * [peerflix](https://github.com/mafintosh/peerflix)
 * mpv
+* make
 
 ## Usage
 This script is really simple to use, you can type:
