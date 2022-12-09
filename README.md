@@ -36,7 +36,7 @@ Make sure you have the dependencies installed. If not, install them using your p
 You can use the included install.sh script to install this program.
 Keep in mind that the installation requires you to put your password for sudo privileges. If you want to know why, take a look at the manual installation.
 ```sh
-$ git clone https://github.com/d4r1us-drk/flix-cli.git     # clone the repo
+$ git clone https://gitlab.com/d4r1us-drk/flix-cli.git     # clone the repo
 $ cd flix-cli                                              # cd into it
 $ ./install.sh                                             # install the script
 ```
@@ -48,7 +48,7 @@ $ sudo npm install -g peerflix                     # install peerflix using npm
 ```
 * Finally clone the repo, go into it, and run the install command.
 ```sh
-$ git clone https://github.com/d4r1us-drk/flix-cli.git     # clone the repo
+$ git clone https://gitlab.com/d4r1us-drk/flix-cli.git     # clone the repo
 $ cd flix-cli                                              # cd into it
 $ sudo make install                                        # install the script
 ```
