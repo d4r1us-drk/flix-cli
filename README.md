@@ -24,7 +24,7 @@ $ flix-cli <search>
 ```
 Or you can enter the program to get a search prompt by typing `flix-cli`
 When searching you'll get this output format:
-![Output Example](./resources/output-example.png "Output Example")
+![Output Example](./data/output-example.png "Output Example")
 - First column: Total Size of the file.
 - Second column: Name of the torrent (Most of the time it will include the quality, video codec, audio codec, etc).
 - Third column: Seeders and Leechers.
