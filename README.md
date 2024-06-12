@@ -1,68 +1,85 @@
-<h1 align="center">flix-cli</h1>
-<p align="center">flix-cli is a tool which search magnet links and stream it with peerflix</p>
+# flix-cli
 
-### How does this work?
-This is a bash script. It scrapes movies from 1337x and gets the magnet link. Yes, movies on the terminal.
-After this it uses [peerflix](https://github.com/mafintosh/peerflix) to stream the video from the magnet link to mpv.
-For scraping, the script uses simple gnu utils like sed, awk, paste, cut. It's recommended to install the lastest version of npm.
+flix-cli is a command-line tool for searching and streaming movies using magnet links and [peerflix](https://github.com/mafintosh/peerflix).
 
-## WARNING
-- **This script will pull out torrents from 1337x which is a very special site, so please use a VPN when using it.**
-- **This script doesn't filter out any content yet, be careful with NSFW related content.**
-- This script doesn't support series yet, if you try to watch a series, it will just play a random episode.
+## How It Works
+
+flix-cli is a bash script that scrapes movies from 1337x to retrieve magnet links, enabling you to stream movies directly in your terminal using mpv and peerflix. The script relies on GNU utilities such as sed, awk, paste, and cut. Make sure you have the latest version of npm installed.
+
+## Warning
+
+- **Use a VPN:** This script retrieves torrents from 1337x, which is of course a torrent site that ISPs usually don't like. Always use a VPN.
+- **NSFW Content:** The script doesn't filter out NSFW content. Be cautious.
+- **No Series Support:** Currently, the script does not support TV series and will play a random episode if a series is searched. A workaround is to search for specific episodes.
 
 ## Requirements
-* npm
-* [peerflix](https://github.com/mafintosh/peerflix)
-* mpv
-* make
+
+- npm
+- [peerflix](https://github.com/mafintosh/peerflix)
+- mpv
+- make
 
 ## Usage
-This script is really simple to use, you can type:
-``` sh
+
+To search for a movie, use the following command:
+
+```sh
 $ flix-cli <search>
 ```
-Or you can enter the program to get a search prompt by typing `flix-cli`
-When searching you'll get this output format:
+
+Alternatively, you can enter the program to get a search prompt by simply typing `flix-cli`. The search results will be displayed in the following format:
+
 ![Output Example](./data/output-example.png "Output Example")
-- First column: Total Size of the file.
-- Second column: Name of the torrent (Most of the time it will include the quality, video codec, audio codec, etc).
-- Third column: Seeders and Leechers.
+
+- **First column:** Total size of the file.
+- **Second column:** Name of the torrent (including details like quality, video codec, audio codec, etc.).
+- **Third column:** Seeders and leechers.
 
 ## Installation
-Make sure you have the dependencies installed. If not, install them using your package manager.
+
+Ensure all dependencies are installed via your package manager.
 
 ### Automatic Installation
-You can use the included install.sh script to install this program.
-Keep in mind that the installation requires you to put your password for sudo privileges. If you want to know why, take a look at the manual installation.
+
+You can use the included `install.sh` script for automatic installation. This script requires sudo privileges.
+
 ```sh
-$ git clone https://gitlab.com/d4r1us-drk/flix-cli.git     # clone the repo
-$ cd flix-cli                                              # cd into it
-$ ./install.sh                                             # install the script
+$ git clone https://gitlab.com/d4r1us-drk/flix-cli.git
+$ cd flix-cli
+$ ./install.sh
 ```
 
 ### Manual Installation
-* First install peerflix using npm, this will put it in the /usr/local/bin directory, to make this a global installation.
-```sh
-$ sudo npm install -g peerflix                     # install peerflix using npm
-```
-* Finally clone the repo, go into it, and run the install command.
-```sh
-$ git clone https://gitlab.com/d4r1us-drk/flix-cli.git     # clone the repo
-$ cd flix-cli                                              # cd into it
-$ sudo make install                                        # install the script
-```
 
-## Uninstall
-Clone the repo again if you deleted it, and run the following command.
+1. Install peerflix globally using npm:
+
+    ```sh
+    $ sudo npm install -g peerflix
+    ```
+
+2. Clone the repository and install the script:
+
+    ```sh
+    $ git clone https://gitlab.com/d4r1us-drk/flix-cli.git
+    $ cd flix-cli
+    $ sudo make install
+    ```
+
+## Uninstallation
+
+To uninstall flix-cli, clone the repository if necessary and run the uninstall command:
+
 ```sh
-$ sudo make uninstall                             # while being inside the repo
+$ sudo make uninstall
 ```
 
 ## Alternatives
-Here's a breef list of alternatives for other type of contents.
-- To watch anime on the terminal: [pystardust's ani-cli](https://github.com/pystardust/ani-cli "ani-cli")
-- To watch youtube videos on the terminal: [pystardust's ytfzf](https://github.com/pystardust/ytfzf "ytfzf")
+
+Here are some alternatives for streaming other types of content:
+
+- **Anime:** [ani-cli by pystardust](https://github.com/pystardust/ani-cli)
+- **YouTube:** [ytfzf by pystardust](https://github.com/pystardust/ytfzf)
 
 ## License
-This project is licensed under [GPL-3.0](https://raw.githubusercontent.com/Illumina/licenses/master/gpl-3.0.txt).
+
+This project is licensed under the [GPL-3.0 License](https://raw.githubusercontent.com/Illumina/licenses/master/gpl-3.0.txt).
