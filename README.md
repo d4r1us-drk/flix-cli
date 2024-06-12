@@ -41,7 +41,7 @@ Ensure all dependencies are installed via your package manager.
 
 ### Automatic Installation
 
-You can use the included `install.sh` script for automatic installation. This script requires sudo privileges.
+You can use the included `install.sh` script for automatic installation. This script will ask you your sudo password for root privileges, if you want to know why, take a look at the manual installation.
 
 ```sh
 $ git clone https://gitlab.com/d4r1us-drk/flix-cli.git
