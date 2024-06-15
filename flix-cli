@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies - peerflix, mpv
+# Dependencies - peerflix, mpv, fzf, curl
 
 # making cache directories
 mkdir -p "$HOME/.cache/flix-cli"
@@ -33,13 +33,14 @@ print_style () {
 [ ! -x "$(command -v peerflix)" ] && print_style "peerflix is not installed, please install it using npm\n" "danger" && exit 1
 [ ! -x "$(command -v mpv)" ] && print_style "mpv is not installed, please install it using your package manager\n" "danger" && exit 1
 [ ! -x "$(command -v fzf)" ] && print_style "fzf is not installed, please install it using your package manager\n" "danger" && exit 1
+[ ! -x "$(command -v curl)" ] && print_style "curl is not installed, please install it using your package manager\n" "danger" && exit 1
 
 # getting user input
 if [ -z "$1" ]; then
-  print_style "Search:\n> " "success"
-  read -r query
+    print_style "Search:\n> " "success"
+    read -r query
 else
-  query=$*
+    query=$*
 fi
 query="$(echo -e "$query" | sed 's/ /+/g')"
 
@@ -48,32 +49,32 @@ curl -s $baseurl/search/"$query"/1/ > "$cachedir"/tmp.html
 
 # getting titles
 grep -o '<a href="/torrent/.*</a>' "$cachedir"/tmp.html |
-  sed 's/<[^>]*>//g' > "$cachedir"/titles.bw
+    sed 's/<[^>]*>//g' > "$cachedir"/titles.bw
 result_count=$(wc -l "$cachedir"/titles.bw | awk '{print $1}')
 
 # error message
 if [ "$result_count" -lt 1 ]; then
-  print_style "No Results found. Please try again...\n" "danger"
-  exit 1
+    print_style "No Results found. Please try again...\n" "danger"
+    exit 1
 fi
 
 # getting seeders and leechers
 grep -o '<td class="coll-2 seeds.*</td>\|<td class="coll-3 leeches.*</td>' "$cachedir"/tmp.html |
-  sed 's/<[^>]*>//g' | sed 'N;s/\n/ /' > "$cachedir"/seedleech.bw
+    sed 's/<[^>]*>//g' | sed 'N;s/\n/ /' > "$cachedir"/seedleech.bw
 
 # getting file size
 grep -o '<td class="coll-4 size.*</td>' "$cachedir"/tmp.html |
-  sed 's/<span class="seeds">.*<\/span>//g' |
-  sed -e 's/<[^>]*>//g' > "$cachedir"/size.bw
+    sed 's/<span class="seeds">.*<\/span>//g' |
+    sed -e 's/<[^>]*>//g' > "$cachedir"/size.bw
 
 # getting links
 grep -E '/torrent/' "$cachedir"/tmp.html |
-  sed -E 's#.*(/torrent/.*)/">.*/#\1#' |
-  sed 's/td>//g' > "$cachedir"/links.bw
+    sed -E 's#.*(/torrent/.*)/">.*/#\1#' |
+    sed 's/td>//g' > "$cachedir"/links.bw
 
 # clearning up some data to display
 sed 's/\./ /g; s/\-/ /g' "$cachedir"/titles.bw |
-  sed 's/[^A-Za-z0-9 ]//g' | tr -s " " > "$cachedir"/tmp && mv "$cachedir"/tmp "$cachedir"/titles.bw
+    sed 's/[^A-Za-z0-9 ]//g' | tr -s " " > "$cachedir"/tmp && mv "$cachedir"/tmp "$cachedir"/titles.bw
 
 awk '{print NR " - ["$0"]"}' "$cachedir"/size.bw > "$cachedir"/tmp && mv "$cachedir"/tmp "$cachedir"/size.bw
 awk '{print "[S:"$1 ", L:"$2"]" }' "$cachedir"/seedleech.bw > "$cachedir"/tmp && mv "$cachedir"/tmp "$cachedir"/seedleech.bw
@@ -81,8 +82,8 @@ awk '{print "[S:"$1 ", L:"$2"]" }' "$cachedir"/seedleech.bw > "$cachedir"/tmp &&
 # getting the line number
 selected=$(paste -d\  "$cachedir"/size.bw "$cachedir"/titles.bw "$cachedir"/seedleech.bw | fzf --height=30% --reverse --ansi)
 if [ -z "$selected" ]; then
-  print_style "No Results selected. Exiting...\n" "danger"
-  exit 1
+    print_style "No Results selected. Exiting...\n" "danger"
+    exit 1
 fi
 LINE=$(echo "$selected" | awk '{print $1}')
 
