@@ -9,7 +9,7 @@ ___________.__  .__                 _________ .__  .__
      \/                  \/                 \/
 
   \e[0m"
-echo "Now installing peerflix" && sudo npm install -g peerflix
+echo "Now installing webtorrent-cli" && sudo npm install -g webtorrent-cli
 echo "Now installing the script" && sudo make install
 echo "
         Finished Installing/Updating!

@@ -1,10 +1,10 @@
 # flix-cli
 
-flix-cli is a command-line tool for searching and streaming movies using magnet links and [peerflix](https://github.com/mafintosh/peerflix).
+flix-cli is a command-line tool for searching and streaming movies using magnet links and [webtorrent-cli](https://github.com/webtorrent/webtorrent-cli).
 
 ## How It Works
 
-flix-cli is a bash script that scrapes movies from 1337x to retrieve magnet links, enabling you to stream movies directly in your terminal using mpv and peerflix. The script relies on GNU utilities such as sed, awk, paste, and cut. Make sure you have the latest version of npm installed.
+flix-cli is a bash script that scrapes movies from 1337x to retrieve magnet links, enabling you to stream movies directly in your terminal using mpv and webtorrent-cli. The script relies on GNU utilities such as sed, awk, paste, and cut. Make sure you have the latest version of npm installed.
 
 ## Warning
 
@@ -15,7 +15,7 @@ flix-cli is a bash script that scrapes movies from 1337x to retrieve magnet link
 ## Requirements
 
 - npm
-- [peerflix](https://github.com/mafintosh/peerflix)
+- [webtorrent-cli](https://github.com/webtorrent/webtorrent-cli)
 - mpv
 - make
 
@@ -51,10 +51,10 @@ $ ./install.sh
 
 ### Manual Installation
 
-1. Install peerflix globally using npm:
+1. Install webtorrent-cli globally using npm:
 
     ```sh
-    $ sudo npm install -g peerflix
+    $ sudo npm install -g webtorrent-cli
     ```
 
 2. Clone the repository and install the script:

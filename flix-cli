@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Dependencies - peerflix, mpv, fzf, curl
+# Dependencies - webtorrent-cli, mpv, fzf, curl
 
 # making cache directories
 mkdir -p "$HOME/.cache/flix-cli"
@@ -30,7 +30,7 @@ print_style () {
 }
 
 # check dependencies
-[ ! -x "$(command -v peerflix)" ] && print_style "peerflix is not installed, please install it using npm\n" "danger" && exit 1
+[ ! -x "$(command -v webtorrent)" ] && print_style "webtorrent is not installed, please install it using npm\n" "danger" && exit 1
 [ ! -x "$(command -v mpv)" ] && print_style "mpv is not installed, please install it using your package manager\n" "danger" && exit 1
 [ ! -x "$(command -v fzf)" ] && print_style "fzf is not installed, please install it using your package manager\n" "danger" && exit 1
 [ ! -x "$(command -v curl)" ] && print_style "curl is not installed, please install it using your package manager\n" "danger" && exit 1
@@ -94,10 +94,11 @@ fullURL="${baseurl}${url}/"
 
 # requesting page for magnet link
 curl -s "$fullURL" > "$cachedir"/tmp.html
-magnet=$(grep -Eo "magnet:\?xt=urn:btih:[a-zA-Z0-9]*" "$cachedir"/tmp.html | head -n 1)
+magnet=$(grep -Eo "magnet:[^\" ]*" "$cachedir"/tmp.html | head -n 1)
 
 # main action
-peerflix -k -f "$videodir" "$magnet"
+print_style "Starting download with webtorrent...\n" "info"
+webtorrent download "$magnet" --mpv -o "$videodir"
 
 # cleanup
 function cleanup { rm -rf "$HOME/.cache/flix-cli"; }
