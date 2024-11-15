@@ -89,12 +89,24 @@ LINE=$(echo "$selected" | awk '{print $1}')
 
 # success message
 print_style "Getting seeds...\n" "warning"
-url=$(head -n "$LINE" "$cachedir"/links.bw | tail -n +"$LINE")
+
+# Get the URL from the selected line and clean it
+url=$(head -n "$LINE" "$cachedir/links.bw" | tail -n 1 | tr -d '\r')
+
+# Construct the full URL
 fullURL="${baseurl}${url}/"
 
-# requesting page for magnet link
-curl -s "$fullURL" > "$cachedir"/tmp.html
-magnet=$(grep -Eo "magnet:[^\" ]*" "$cachedir"/tmp.html | head -n 1)
+# Fetch the torrent page
+curl -s "$fullURL" > "$cachedir/tmp.html"
+
+# Extract the magnet link
+magnet=$(grep -Eo 'magnet:[^" ]*' "$cachedir/tmp.html" | head -n 1)
+
+# Handle missing magnet link
+if [ -z "$magnet" ]; then
+    print_style "Failed to retrieve magnet link. Please check the URL or website structure.\n" "danger"
+    exit 1
+fi
 
 # main action
 print_style "Starting download with webtorrent...\n" "info"
