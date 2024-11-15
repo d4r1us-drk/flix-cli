@@ -2,40 +2,38 @@
 
 # Dependencies - webtorrent-cli, mpv, fzf, curl
 
-# making cache directories
-mkdir -p "$HOME/.cache/flix-cli"
-mkdir -p "$HOME/.cache/flix-cli/video"
-
-# some variables
-baseurl="https://1337x.to"
+# Variables
+baseurl="https://1337x.to" # https is neccesary
 cachedir="$HOME/.cache/flix-cli"
-videodir="$HOME/.cache/flix-cli/video"
 
-# prints colored text
-print_style () {
-    if [ "$2" == "info" ] ; then
-        COLOR="96m";
-    elif [ "$2" == "success" ] ; then
-        COLOR="92m";
-    elif [ "$2" == "warning" ] ; then
-        COLOR="93m";
-    elif [ "$2" == "danger" ] ; then
-        COLOR="91m";
-    else #default color
-        COLOR="0m";
+# Create cache directories
+mkdir -p "$cachedir"
+
+# Print styled text
+print_style() {
+    if [ "$2" == "info" ]; then
+        COLOR="96m"
+    elif [ "$2" == "success" ]; then
+        COLOR="92m"
+    elif [ "$2" == "warning" ]; then
+        COLOR="93m"
+    elif [ "$2" == "danger" ]; then
+        COLOR="91m"
+    else
+        COLOR="0m"
     fi
-    STARTCOLOR="\e[$COLOR";
-    ENDCOLOR="\e[0m";
-    printf "$STARTCOLOR%b$ENDCOLOR" "$1";
+    STARTCOLOR="\e[$COLOR"
+    ENDCOLOR="\e[0m"
+    printf "$STARTCOLOR%b$ENDCOLOR" "$1"
 }
 
-# check dependencies
+# Check dependencies
 [ ! -x "$(command -v webtorrent)" ] && print_style "webtorrent is not installed, please install it using npm\n" "danger" && exit 1
 [ ! -x "$(command -v mpv)" ] && print_style "mpv is not installed, please install it using your package manager\n" "danger" && exit 1
 [ ! -x "$(command -v fzf)" ] && print_style "fzf is not installed, please install it using your package manager\n" "danger" && exit 1
 [ ! -x "$(command -v curl)" ] && print_style "curl is not installed, please install it using your package manager\n" "danger" && exit 1
 
-# getting user input
+# Get user input
 if [ -z "$1" ]; then
     print_style "Search:\n> " "success"
     read -r query
@@ -44,74 +42,74 @@ else
 fi
 query="$(echo -e "$query" | sed 's/ /+/g')"
 
-# doing the scrap
-curl -s $baseurl/search/"$query"/1/ > "$cachedir"/tmp.html
+# Perform search
+curl -s $baseurl/search/"$query"/1/ > "$cachedir/tmp.html"
 
-# getting titles
-grep -o '<a href="/torrent/.*</a>' "$cachedir"/tmp.html |
-    sed 's/<[^>]*>//g' > "$cachedir"/titles.bw
-result_count=$(wc -l "$cachedir"/titles.bw | awk '{print $1}')
+# Extract titles
+grep -o '<a href="/torrent/.*</a>' "$cachedir/tmp.html" | sed 's/<[^>]*>//g' > "$cachedir/titles.bw"
+result_count=$(wc -l "$cachedir/titles.bw" | awk '{print $1}')
 
-# error message
+# Check for results
 if [ "$result_count" -lt 1 ]; then
-    print_style "No Results found. Please try again...\n" "danger"
+    print_style "No results found. Please try again...\n" "danger"
     exit 1
 fi
 
-# getting seeders and leechers
-grep -o '<td class="coll-2 seeds.*</td>\|<td class="coll-3 leeches.*</td>' "$cachedir"/tmp.html |
-    sed 's/<[^>]*>//g' | sed 'N;s/\n/ /' > "$cachedir"/seedleech.bw
-
-# getting file size
-grep -o '<td class="coll-4 size.*</td>' "$cachedir"/tmp.html |
+# Extract additional information
+grep -o '<td class="coll-2 seeds.*</td>\|<td class="coll-3 leeches.*</td>' "$cachedir/tmp.html" |
+    sed 's/<[^>]*>//g' | sed 'N;s/\n/ /' > "$cachedir/seedleech.bw"
+grep -o '<td class="coll-4 size.*</td>' "$cachedir/tmp.html" |
     sed 's/<span class="seeds">.*<\/span>//g' |
-    sed -e 's/<[^>]*>//g' > "$cachedir"/size.bw
-
-# getting links
-grep -E '/torrent/' "$cachedir"/tmp.html |
+    sed -e 's/<[^>]*>//g' > "$cachedir/size.bw"
+grep -E '/torrent/' "$cachedir/tmp.html" |
     sed -E 's#.*(/torrent/.*)/">.*/#\1#' |
-    sed 's/td>//g' > "$cachedir"/links.bw
+    sed 's/td>//g' > "$cachedir/links.bw"
 
-# clearning up some data to display
-sed 's/\./ /g; s/\-/ /g' "$cachedir"/titles.bw |
-    sed 's/[^A-Za-z0-9 ]//g' | tr -s " " > "$cachedir"/tmp && mv "$cachedir"/tmp "$cachedir"/titles.bw
+# Format for display
+sed 's/\./ /g; s/\-/ /g' "$cachedir/titles.bw" | sed 's/[^A-Za-z0-9 ]//g' | tr -s " " > "$cachedir/tmp" && mv "$cachedir/tmp" "$cachedir/titles.bw"
+awk '{print NR " - ["$0"]"}' "$cachedir/size.bw" > "$cachedir/tmp" && mv "$cachedir/tmp" "$cachedir/size.bw"
+awk '{print "[S:"$1 ", L:"$2"]" }' "$cachedir/seedleech.bw" > "$cachedir/tmp" && mv "$cachedir/tmp" "$cachedir/seedleech.bw"
 
-awk '{print NR " - ["$0"]"}' "$cachedir"/size.bw > "$cachedir"/tmp && mv "$cachedir"/tmp "$cachedir"/size.bw
-awk '{print "[S:"$1 ", L:"$2"]" }' "$cachedir"/seedleech.bw > "$cachedir"/tmp && mv "$cachedir"/tmp "$cachedir"/seedleech.bw
-
-# getting the line number
-selected=$(paste -d\  "$cachedir"/size.bw "$cachedir"/titles.bw "$cachedir"/seedleech.bw | fzf --height=30% --reverse --ansi)
+# Select a torrent
+selected=$(paste -d\  "$cachedir/size.bw" "$cachedir/titles.bw" "$cachedir/seedleech.bw" | fzf --height=30% --reverse --ansi)
 if [ -z "$selected" ]; then
-    print_style "No Results selected. Exiting...\n" "danger"
+    print_style "No results selected. Exiting...\n" "danger"
     exit 1
 fi
 LINE=$(echo "$selected" | awk '{print $1}')
 
-# success message
-print_style "Getting seeds...\n" "warning"
-
-# Get the URL from the selected line and clean it
+# Get the URL and construct the full URL
 url=$(head -n "$LINE" "$cachedir/links.bw" | tail -n 1 | tr -d '\r')
-
-# Construct the full URL
 fullURL="${baseurl}${url}/"
 
-# Fetch the torrent page
+# Fetch torrent page
 curl -s "$fullURL" > "$cachedir/tmp.html"
 
-# Extract the magnet link
+# Extract magnet link
 magnet=$(grep -Eo 'magnet:[^" ]*' "$cachedir/tmp.html" | head -n 1)
-
-# Handle missing magnet link
 if [ -z "$magnet" ]; then
     print_style "Failed to retrieve magnet link. Please check the URL or website structure.\n" "danger"
     exit 1
 fi
 
-# main action
-print_style "Starting download with webtorrent...\n" "info"
-webtorrent download "$magnet" --mpv -o "$videodir"
+# Ask user whether to stream or download
+print_style "Stream or download? (s/d): " "info"
+read -r action
+if [[ "$action" == "d" ]]; then
+    # Ask user for download directory
+    print_style "Select download directory:\n" "success"
+    download_dir=$(find "$HOME" -type d | fzf --height=30% --reverse --ansi)
+    if [ -z "$download_dir" ]; then
+        print_style "No directory selected. Exiting...\n" "danger"
+        exit 1
+    fi
+    print_style "Downloading to $download_dir...\n" "info"
+    webtorrent download "$magnet" --mpv -o "$download_dir"
+else
+    print_style "Streaming with mpv...\n" "info"
+    webtorrent "$magnet" --mpv
+fi
 
-# cleanup
-function cleanup { rm -rf "$HOME/.cache/flix-cli"; }
-trap 'cleanup' EXIT INT SIGINT SIGTERM
+# Cleanup
+function cleanup { rm -rf "$cachedir" && rm -rf /tmp/webtorrent; }
+trap cleanup EXIT INT SIGINT SIGTERM
